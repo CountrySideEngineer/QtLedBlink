@@ -159,28 +159,28 @@ uint8_t SetGPIO(int pin, int value) {
 }
 
 /**
- * @brief	Get PIN value, HIGH or LOW.
- * @param[in]	pin		GPIO pin index on RapberryPi.
+ * @brief   Get PIN value, HIGH or LOW.
+ * @param[in]   pin     GPIO pin index on RapberryPi.
  * @return  If pin configuration finished successfully, returns PIN value.
- * 			Otherwise returns minus 1 (-1).
+ *          Otherwise returns minus 1 (-1).
  */
 int GetGPIO(int pin)
 {
-	int value = -1;
+    int value = -1;
 
-	if (0 == IsInit) {
+    if (0 == IsInit) {
         value = -1;
     } else if ((pin < 0) || (53 < pin)) {
         value = -1;
-	} else {
-		int ret = gpioRead((unsigned int)pin);
-		if (PI_BAD_GPIO == ret) {
-	        value = -1;
-		} else {
-			value = ret;
-		}
-	}
+    } else {
+        int ret = gpioRead((unsigned int)pin);
+        if (PI_BAD_GPIO == ret) {
+            value = -1;
+        } else {
+            value = ret;
+        }
+    }
 
-	return value;
+    return value;
 }
 
