@@ -1,17 +1,26 @@
 #include <QDebug>
+#include <stdint.h>
 #include "qtledblinkmainwindow.h"
 #include "ui_qtledblinkmainwindow.h"
+#include "model/cgpiopin.h"
+#include "model/ciopin.h"
 
 QtLEDBlinkMainWindow::QtLEDBlinkMainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::QtLEDBlinkMainWindow)
 {
     ui->setupUi(this);
+
+    CIOPin::create();
+    CGPIOPin gpioPin;
+    gpioPin.SetupPinMode(2, 1); //GPIO2, OUTPUT
 }
 
 QtLEDBlinkMainWindow::~QtLEDBlinkMainWindow()
 {
     delete ui;
+
+    CIOPin::destroy();
 }
 
 /**
@@ -19,7 +28,14 @@ QtLEDBlinkMainWindow::~QtLEDBlinkMainWindow()
  */
 void QtLEDBlinkMainWindow::on_gpio02Button_clicked()
 {
-    qDebug() << "QtLEDBlinkMainWindow::on_gpio02Button_clicked() called";
+    static int pinValue = 0;
+    CGPIOPin gpioPin;
+    gpioPin.SetPinValue(pinValue);
+    if (0 == pinValue) {
+        pinValue = 1;
+    } else {
+        pinValue = 0;
+    }
 }
 
 /**

@@ -1,5 +1,7 @@
+#include <stdint.h>
 #include "cgpiopin.h"
 #include "ciopin.h"
+#include "LibpigpioWrap.h"
 
 /**
  * @brief CGPIOPin::CGPIOPin constructor. Create instance of IO pin.
@@ -12,3 +14,22 @@ CGPIOPin::CGPIOPin() { CIOPin::create(); }
  * @brief CGPIOPin::~CGPIOPin destructor. Delete instance of IO pin.
  */
 CGPIOPin::~CGPIOPin() { CIOPin::destroy(); }
+
+void CGPIOPin::SetupPinMode(int pin, int mode)
+{
+    this->mPin = pin;
+    this->mMode = mode;
+
+#ifdef CALL_CALL_PIGPIO_LIBRARY
+    SetGPIOMode(pin, mode);
+#endif  /* CALL_CALL_PIGPIO_LIBRARY */
+}
+
+void CGPIOPin::SetPinValue(int value)
+{
+#ifdef CALL_CALL_PIGPIO_LIBRARY
+    SetGPIO(this->mPin, value);
+#else
+    value = 0;  //To take measures for variable unused warning.
+#endif  /* CALL_CALL_PIGPIO_LIBRARY */
+}

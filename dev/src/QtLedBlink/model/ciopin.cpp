@@ -1,6 +1,6 @@
 #include "stdint.h"
 #include "ciopin.h"
-//#include "LibpigpioWrap.h"
+#include "LibpigpioWrap.h"
 
 //Initialize static member parameter
 CIOPin* CIOPin::mInstance = nullptr;
@@ -9,12 +9,16 @@ CIOPin* CIOPin::mInstance = nullptr;
  * @brief CIOPin::CIOPing constructor
  */
 CIOPin::CIOPin() {
-    //Call library function to initialize pigpio library.
+#ifdef CALL_PIGPIO_LIBRARY
+    LibInitialize();
+#endif  /* CALL_PIGPIO_LIBRARY */
 }
 
 /**
  * @brief CIOPing::~CIOPing destructor
  */
 CIOPin::~CIOPin() {
-    //Call library functoin to terminate pigpio library.
+#ifdef CALL_PIGPIO_LIBRARY
+    LibFinalize();
+#endif  /* CALL_PIGPIO_LIBRARY */
 }
