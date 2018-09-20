@@ -14,6 +14,8 @@ QtLEDBlinkMainWindow::QtLEDBlinkMainWindow(QWidget *parent) :
     CIOPin::create();
     CGPIOPin gpioPin;
     gpioPin.SetupPinMode(2, 1); //GPIO2, OUTPUT
+
+    connect(this->ui->closeAppButton, SIGNAL(clicked()), qApp, SLOT(quit()));
 }
 
 QtLEDBlinkMainWindow::~QtLEDBlinkMainWindow()
