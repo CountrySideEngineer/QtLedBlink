@@ -4,7 +4,6 @@
  *  Created on: 2018/09/18
  *      Author: CountrySideEngineer
  */
-
 #ifndef LIBPIGPIOWRAP_H_
 #define LIBPIGPIOWRAP_H_
 
