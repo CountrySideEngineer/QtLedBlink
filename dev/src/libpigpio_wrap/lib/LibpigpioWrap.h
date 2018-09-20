@@ -30,8 +30,10 @@ extern "C" {
 //Declaration of functions in the library.
 extern uint8_t LibInitialize();
 extern uint8_t LibFinalize();
+extern uint16_t LibVersion(void);
 extern uint8_t SetGPIOMode(int pin, int mode);
 extern uint8_t SetGPIO(int pin, int value);
+extern int GetGPIO(int pin);
 
 #ifdef __cplusplus
 }

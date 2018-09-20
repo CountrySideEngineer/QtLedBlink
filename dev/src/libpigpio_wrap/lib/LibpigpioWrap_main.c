@@ -122,7 +122,7 @@ uint8_t SetGPIOMode(int pin, int mode) {
 }
 
 /**
- *  @brief  Set PIN value, high and low.
+ *  @brief  Set PIN value, HIGH or LOW.
  *  @param[in]  pin     GPIO pin index on RaspberryPi.
  *  @param[in]  value   Value to set to value, only GPIO_LV_OFF and GPIO_LV_ON
  *                      are allowed.
@@ -157,3 +157,30 @@ uint8_t SetGPIO(int pin, int value) {
 
     return result;
 }
+
+/**
+ * @brief	Get PIN value, HIGH or LOW.
+ * @param[in]	pin		GPIO pin index on RapberryPi.
+ * @return  If pin configuration finished successfully, returns PIN value.
+ * 			Otherwise returns minus 1 (-1).
+ */
+int GetGPIO(int pin)
+{
+	int value = -1;
+
+	if (0 == IsInit) {
+        value = -1;
+    } else if ((pin < 0) || (53 < pin)) {
+        value = -1;
+	} else {
+		int ret = gpioRead((unsigned int)pin);
+		if (PI_BAD_GPIO == ret) {
+	        value = -1;
+		} else {
+			value = ret;
+		}
+	}
+
+	return value;
+}
+
