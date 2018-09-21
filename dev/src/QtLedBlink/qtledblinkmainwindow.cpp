@@ -12,8 +12,11 @@ QtLEDBlinkMainWindow::QtLEDBlinkMainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     CIOPin::create();
-    CGPIOPin gpioPin;
-    gpioPin.SetupPinMode(2, 1); //GPIO2, OUTPUT
+
+    this->mGpioPin2.SetupPinMode(2, 1);
+    this->mGpioPin3.SetupPinMode(3, 1);
+    this->mGpioPin4.SetupPinMode(4, 1);
+    this->mGpioPin17.SetupPinMode(17, 1);
 
     connect(this->ui->closeAppButton, SIGNAL(clicked()), qApp, SLOT(quit()));
 }
@@ -30,14 +33,9 @@ QtLEDBlinkMainWindow::~QtLEDBlinkMainWindow()
  */
 void QtLEDBlinkMainWindow::on_gpio02Button_clicked()
 {
-    static int pinValue = 0;
-    CGPIOPin gpioPin;
-    gpioPin.SetPinValue(pinValue);
-    if (0 == pinValue) {
-        pinValue = 1;
-    } else {
-        pinValue = 0;
-    }
+    printf("on_gpio02Button_clicked\n");
+
+    this->updateGpioPin(this->mGpioPin2);
 }
 
 /**
@@ -45,7 +43,9 @@ void QtLEDBlinkMainWindow::on_gpio02Button_clicked()
  */
 void QtLEDBlinkMainWindow::on_gpio03Button_clicked()
 {
-    qDebug() << "QtLEDBlinkMainWindow::on_gpio03Button_clicked() called";
+    printf("on_gpio03Button_clicked\n");
+
+    this->updateGpioPin(this->mGpioPin3);
 }
 
 /**
@@ -53,7 +53,9 @@ void QtLEDBlinkMainWindow::on_gpio03Button_clicked()
  */
 void QtLEDBlinkMainWindow::on_gpio04Button_clicked()
 {
-    qDebug() << "QtLEDBlinkMainWindow::on_gpio04Button_clicked() called";
+    printf("on_gpio04Button_clicked\n");
+
+    this->updateGpioPin(this->mGpioPin4);
 }
 
 /**
@@ -61,5 +63,19 @@ void QtLEDBlinkMainWindow::on_gpio04Button_clicked()
  */
 void QtLEDBlinkMainWindow::on_gpio05Button_clicked()
 {
-    qDebug() << "QtLEDBlinkMainWindow::on_gpio05Button_clicked() called";
+    printf("on_gpio05Button_clicked\n");
+
+    this->updateGpioPin(this->mGpioPin17);
+}
+
+void QtLEDBlinkMainWindow::updateGpioPin(CGPIOPin& gpioPin)
+{
+    int pinValue = gpioPin.GetPinValue();
+    if (1 == pinValue) {
+        pinValue = 0;
+    } else {
+        pinValue = 1;
+    }
+    printf("SET PIN = %d, LEVEL = %d\n", gpioPin.GetPin(), pinValue);
+    gpioPin.SetPinValue(pinValue);
 }

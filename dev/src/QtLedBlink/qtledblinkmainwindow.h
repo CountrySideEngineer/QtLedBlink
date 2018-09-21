@@ -2,6 +2,7 @@
 #define QTLEDBLINKMAINWINDOW_H
 
 #include <QMainWindow>
+#include <model/cgpiopin.h>
 
 namespace Ui {
 class QtLEDBlinkMainWindow;
@@ -21,6 +22,14 @@ protected slots:
     void on_gpio04Button_clicked();
     void on_gpio05Button_clicked();
 
+protected:
+    void updateGpioPin(CGPIOPin& gpioPin);
+
+protected:
+    CGPIOPin mGpioPin2;
+    CGPIOPin mGpioPin3;
+    CGPIOPin mGpioPin4;
+    CGPIOPin mGpioPin17;
 
 private:
     Ui::QtLEDBlinkMainWindow *ui;
