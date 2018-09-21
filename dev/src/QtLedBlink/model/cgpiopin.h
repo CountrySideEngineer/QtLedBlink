@@ -10,7 +10,9 @@ public:
 
     virtual void SetupPinMode(int pin, int mode);
     virtual void SetPinValue(int value);
-    //virtual int GetPinValue();
+    virtual int GetPinValue();
+
+    int GetPin() { return this->mPin; }
 
 protected:
     int mPin;

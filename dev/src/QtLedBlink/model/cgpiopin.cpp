@@ -20,16 +20,25 @@ void CGPIOPin::SetupPinMode(int pin, int mode)
     this->mPin = pin;
     this->mMode = mode;
 
-#ifdef CALL_CALL_PIGPIO_LIBRARY
+#ifdef CALL_PIGPIO_LIBRARY
     SetGPIOMode(pin, mode);
 #endif  /* CALL_CALL_PIGPIO_LIBRARY */
 }
 
 void CGPIOPin::SetPinValue(int value)
 {
-#ifdef CALL_CALL_PIGPIO_LIBRARY
+#ifdef CALL_PIGPIO_LIBRARY
     SetGPIO(this->mPin, value);
 #else
     value = 0;  //To take measures for variable unused warning.
 #endif  /* CALL_CALL_PIGPIO_LIBRARY */
+}
+
+int CGPIOPin::GetPinValue()
+{
+#ifdef CALL_PIGPIO_LIBRARY
+    return GetGPIO(this->mPin);
+#else
+    return 0;
+#endif
 }
