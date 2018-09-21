@@ -6,6 +6,8 @@
  */
 #ifndef LIBPIGPIOWRAP_H_
 #define LIBPIGPIOWRAP_H_
+#include <stdio.h>
+#include <stdint.h>
 
 #ifdef __cplusplus
 extern "C" {
