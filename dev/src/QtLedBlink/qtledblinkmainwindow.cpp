@@ -43,6 +43,8 @@ void QtLEDBlinkMainWindow::on_gpio02Button_clicked()
     printf("on_gpio02Button_clicked\n");
 
     this->updateGpioPin(this->mGpioPin2);
+    this->updateGpioPinState(this->mGpioPin2, this->ui->gpio02OnOffLabel,
+                             QString("style_on_off.qss"));
 }
 
 /**
@@ -53,6 +55,8 @@ void QtLEDBlinkMainWindow::on_gpio03Button_clicked()
     printf("on_gpio03Button_clicked\n");
 
     this->updateGpioPin(this->mGpioPin3);
+    this->updateGpioPinState(this->mGpioPin3, this->ui->gpio03OnOffLabel,
+                             QString("style_on_off.qss"));
 }
 
 /**
@@ -63,6 +67,8 @@ void QtLEDBlinkMainWindow::on_gpio04Button_clicked()
     printf("on_gpio04Button_clicked\n");
 
     this->updateGpioPin(this->mGpioPin4);
+    this->updateGpioPinState(this->mGpioPin4, this->ui->gpio04OnOffLabel,
+                             QString("style_on_off.qss"));
 }
 
 /**
@@ -73,6 +79,8 @@ void QtLEDBlinkMainWindow::on_gpio05Button_clicked()
     printf("on_gpio05Button_clicked\n");
 
     this->updateGpioPin(this->mGpioPin17);
+    this->updateGpioPinState(this->mGpioPin17, this->ui->gpio05OnOffLabel,
+                             QString("style_on_off.qss"));
 }
 
 void QtLEDBlinkMainWindow::updateGpioPin(CGPIOPin& gpioPin)
@@ -86,3 +94,25 @@ void QtLEDBlinkMainWindow::updateGpioPin(CGPIOPin& gpioPin)
     printf("SET PIN = %d, LEVEL = %d\n", gpioPin.GetPin(), pinValue);
     gpioPin.SetPinValue(pinValue);
 }
+
+void QtLEDBlinkMainWindow::updateGpioPinState(
+        CGPIOPin& gpioPin, QWidget* dstWidget, QString resourceFile)
+{
+    QLabel* dstLabel = dynamic_cast<QLabel*>(dstWidget);
+    QString dstLabelText;
+
+    if (1 == gpioPin.GetPinValue()) {
+        dstLabelText = QString("on");
+    } else {
+        dstLabelText = QString("off");
+    }
+
+    dstLabel->setText(dstLabelText);
+    QString styleSheetFileName = ":/qss/" + resourceFile;
+    QFile styleSheetFile(styleSheetFileName);
+    styleSheetFile.open(QFile::ReadOnly);
+    QString styleSheet = QString::fromLatin1(styleSheetFile.readAll());
+    dstLabel->setStyleSheet(styleSheet);
+    styleSheetFile.close();
+}
+

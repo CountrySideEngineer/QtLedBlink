@@ -58,3 +58,5 @@ unix:{
 
 RESOURCES += \
     resources/resource.qrc
+
+DISTFILES +=

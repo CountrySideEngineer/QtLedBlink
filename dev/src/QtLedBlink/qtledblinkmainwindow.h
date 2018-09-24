@@ -24,6 +24,7 @@ protected slots:
 
 protected:
     void updateGpioPin(CGPIOPin& gpioPin);
+    void updateGpioPinState(CGPIOPin& gpioPin, QWidget* dstWidget, QString resourceFile);
 
 protected:
     CGPIOPin mGpioPin2;
