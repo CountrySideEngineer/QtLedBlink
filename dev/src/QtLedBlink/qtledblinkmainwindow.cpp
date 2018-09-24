@@ -1,4 +1,5 @@
 #include <QDebug>
+#include <QFile>
 #include <stdint.h>
 #include "qtledblinkmainwindow.h"
 #include "ui_qtledblinkmainwindow.h"
@@ -13,12 +14,18 @@ QtLEDBlinkMainWindow::QtLEDBlinkMainWindow(QWidget *parent) :
 
     CIOPin::create();
 
-    this->mGpioPin2.SetupPinMode(2, 1);
-    this->mGpioPin3.SetupPinMode(3, 1);
-    this->mGpioPin4.SetupPinMode(4, 1);
-    this->mGpioPin17.SetupPinMode(17, 1);
+    this->mGpioPin2.SetupPinMode(6, 1);
+    this->mGpioPin3.SetupPinMode(13, 1);
+    this->mGpioPin4.SetupPinMode(19, 1);
+    this->mGpioPin17.SetupPinMode(26, 1);
 
     connect(this->ui->closeAppButton, SIGNAL(clicked()), qApp, SLOT(quit()));
+
+    QFile styleSheetFile(":/qss/style.qss");
+    styleSheetFile.open(QFile::ReadOnly);
+    QString styleSheet = QString::fromLatin1(styleSheetFile.readAll());
+    qApp->setStyleSheet(styleSheet);
+    styleSheetFile.close();
 }
 
 QtLEDBlinkMainWindow::~QtLEDBlinkMainWindow()
