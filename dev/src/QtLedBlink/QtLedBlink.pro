@@ -55,3 +55,6 @@ unix:{
         -lpigpio_wrap \
         -lpigpio
 }
+
+RESOURCES += \
+    resources/resource.qrc
