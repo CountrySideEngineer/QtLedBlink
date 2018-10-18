@@ -37,10 +37,13 @@ FORMS += \
         qtledblinkmainwindow.ui
 
 unix:{
-    INCLUDEPATH += ../libpigpio_wrap/lib
+    INCLUDEPATH += ../libpigpio_wrap/lib \
+    INCLUDEPATH += ../libpigpio_wrap/include \
+
 }
 win32:{
-    INCLUDEPATH += ..\libpigpio_wrap\lib
+#    INCLUDEPATH += ../libpigpio_wrap/lib \
+    INCLUDEPATH += ../libpigpio_wrap/include \
 }
 
 # Default rules for deployment.
@@ -48,11 +51,17 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-unix:{
+#unix:{
+#    DEFINES += WINDOW_FULL_SCREEN
+#    DEFINES += CALL_PIGPIO_LIBRARY
+#    LIBS += -lpthread \
+#        -lpigpio_wrap \
+#        -lpigpio
+#}
+linux-rasp-pi-g++:{
     DEFINES += WINDOW_FULL_SCREEN
-    DEFINES += CALL_PIGPIO_LIBRARY
+    DEFINES += USE_PIGPIO_LIBRARY
     LIBS += -lpthread \
-        -lpigpio_wrap \
         -lpigpio
 }
 

@@ -44,6 +44,7 @@ public:
 
 protected:
     static CIOPin* mInstance;
+    static bool IsInit;
 
 };
 
